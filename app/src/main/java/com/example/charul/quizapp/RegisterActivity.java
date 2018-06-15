@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextView mresult;
 
     private static final String TAG = "RegisterActivity";
-    private static final String URL_FOR_REGISTRATION = "http://quiztest1-env.wvxt8z5xwz.us-east-1.elasticbeanstalk.com/explorer/#!/user/user_create";
+    private static final String URL_FOR_REGISTRATION = "http://quiztest1-env.wvxt8z5xwz.us-east-1.elasticbeanstalk.com/api/users";
     ProgressDialog progressDialog;
 
     @Override
@@ -107,6 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressDialog.setMessage("Registering...");
         showDialog();
+        Log.e("first","f1");
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_FOR_REGISTRATION, new Response.Listener<String>()
@@ -119,26 +120,29 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.d(TAG, "Register Response: " + response.toString());
                 hideDialog();
 
+
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
+                    /*boolean error = jObj.getBoolean("error");
+                    Log.e("error",String.valueOf(error));
+*/
+                    Log.e("JSON",jObj.toString());
 
-
-                    if (!error) {
-                        String user = jObj.getJSONObject("user").getString("name");
+                        String user = jObj.get("name").toString();
                         Toast.makeText(getApplicationContext(), "Hi " + user + ", You are successfully Registered!", Toast.LENGTH_SHORT).show();
 
                         // Launch login activity
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
-                        finish();
-                    } else {
+                        //finish();
+                    /*} else {
 
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
-                    }
+                    }*/
                 } catch (JSONException e) {
+                    Log.e("here","error");
                     e.printStackTrace();
                 }
 
@@ -165,6 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return params;
             }
         };
+        Log.e("second","second");
         // Adding request to request queue
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
     }
