@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+
+    <string name="FACEBOOK_APP_ID">176253113059092</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">48ba40d17f6c03977f72ed9c05011e58</string>
+    <string name="ak_login_protocol_scheme">ak48ba40d17f6c03977f72ed9c05011e58</string>
+
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+</resources>
